@@ -20,7 +20,7 @@ class Constants {
 
   static const Duration timeOutLimitation = Duration(seconds: 10);
   static const Duration timeOutCache =
-      Duration(minutes: 3); //để 1 để test cho nhanh
+      Duration(minutes: 2); //để 1 để test cho nhanh
 }
 
 class SizeConfig {
