@@ -1,16 +1,14 @@
-# ibenefit_interview_test
+# iBenefit Interview Test
 
-A new Flutter project.
+Có 3 screen: Splash, Login và Home screen
+Sử dụng API để gọi device code. Các device code sẽ có thời gian trong vòng 2 phút.
+Login, có check format đơn giản, nhận các lỗi từ server gửi về
+Home có Logout (vẫn cần device code trong mỗi lần gọi)
 
-## Getting Started
+Sử dụng kiến trúc BLoC.
+Cache sử dụng Hive
+Giao tiếp API sử dụng HTTP
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Có sử dụng các widget tự tạo nằm trong file widget.dart
+Các dialog đơn giản trong file dialog.dart
+Các hằng số trong constant.dart
