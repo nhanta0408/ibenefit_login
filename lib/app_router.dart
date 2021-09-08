@@ -43,7 +43,9 @@ class AppRouter {
           ),
         );
       case '/home_screen':
+        final args = routeSettings.arguments;
         return MaterialPageRoute(
+            settings: RouteSettings(arguments: args),
             builder: (_) => BlocProvider<LogoutBloc>.value(
                   value: logoutBloc,
                   child: HomeScreen(),

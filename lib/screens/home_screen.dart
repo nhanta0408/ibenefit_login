@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ibenefit_interview_test/bloc/logout_bloc.dart';
 import 'package:ibenefit_interview_test/events/logout_events.dart';
+import 'package:ibenefit_interview_test/model/login_response.dart';
 import 'package:ibenefit_interview_test/state/logout_state.dart';
 import 'package:ibenefit_interview_test/value/color.dart';
 import 'package:ibenefit_interview_test/value/constants.dart';
@@ -13,6 +14,9 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     LoadingDialog loadingDialog =
         LoadingDialog(buildContext: context, dismissable: false);
+    final loginResponse =
+        ModalRoute.of(context)!.settings.arguments as LoginResponse;
+    print("User có name là: " + loginResponse.data!.user!.name!);
     return Scaffold(
         appBar: AppBar(
           title: Text("HomeScreen"),
@@ -59,7 +63,7 @@ class HomeScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      "Đây là HomeScreen",
+                      "Xin chào " + loginResponse.data!.user!.name!,
                       style: TextStyle(fontSize: 30),
                     ),
                     SizedBox(height: 30 * SizeConfig.ratioHeight!),

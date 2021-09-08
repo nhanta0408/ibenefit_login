@@ -43,7 +43,8 @@ class LoginScreen extends StatelessWidget {
               //loadingDialog.show();
             } else if (loginState is LoginStateLoginSuccessful) {
               //loadingDialog.dismiss();
-              Navigator.popAndPushNamed(context, "/home_screen");
+              Navigator.of(context).popAndPushNamed("/home_screen",
+                  arguments: loginState.loginResponse);
             } else if (loginState is LoginStateLoginFailure) {
               //loadingDialog.dismiss();
               if (loginState.responsePackage.code == 400) {
