@@ -42,7 +42,7 @@ class SplashScreen extends StatelessWidget {
           AlertDialogOneBtnCustomized(
                   context: context,
                   title: "Đã có lỗi xảy ra",
-                  desc: "Vui lòng thử lại")
+                  desc: initDeviceState.responsePackage.msg!)
               .show();
         }
       }

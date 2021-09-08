@@ -55,7 +55,7 @@ class HomeScreen extends StatelessWidget {
                     AlertDialogOneBtnCustomized(
                       context: context,
                       title: "Đăng xuất thất bại",
-                      desc: "Đã xảy ra lỗi,\nvui lòng thử lại.",
+                      desc: "Vui lòng thử lại",
                       textBtn: "Đồng ý",
                     ).show();
                   }

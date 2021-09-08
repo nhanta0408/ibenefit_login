@@ -27,6 +27,11 @@ class StoreDeivceCode {
     Hive.init(directory.path);
     box = await Hive.openBox('data');
     boxTimestamp = await Hive.openBox('timestamp');
+
+    box.add("dummy");
+    //Phần tử timestamp đầu tiên là -30 ngày trước nên chắc chắc phải tải dữ liệu từ API
+    boxTimestamp.add(DateTime.now().add(Duration(days: -45)));
+
     return;
   }
 
@@ -44,28 +49,23 @@ class StoreDeivceCode {
     box = await Hive.openBox('data');
     boxTimestamp = await Hive.openBox('timestamp');
 
-    if (boxTimestamp.isEmpty) {
-      //Nếu boxtimestamp bị trống thì cần add trước 1 value
-      boxTimestamp.add(DateTime.now());
-      return "";
+    DateTime timestamp = boxTimestamp.values.first;
+    print(boxTimestamp.values.first);
+    //Chỉnh duration tại đây để dễ test
+    if (DateTime.now().isBefore(timestamp.add(Constants.timeOutCache))) {
+      //Nếu cache còn hạn sử dụng
+      print("Code cũ á: " + box.values.toString());
+      return box.values.first.toString();
     } else {
-      DateTime timestamp = boxTimestamp.values.first;
-      //Chỉnh duration tại đây để dễ test
-      if (DateTime.now().isBefore(timestamp.add(Constants.timeOutCache))) {
-        //Nếu cache còn hạn sử dụng
-        print("Code cũ á: " + box.values.toString());
-        return box.values.first.toString();
+      //Nếu cache hết hạn dùng
+      final response = await loginRepository.initDevice();
+      if (response is InitResponse) {
+        print("Phải tải Device code mới: " + response.data!.deviceCode!);
+        putData(response.data!.deviceCode!);
+        return response.data!.deviceCode!;
       } else {
-        //Nếu cache hết hạn dùng
-        final response = await loginRepository.initDevice();
-        if (response is InitResponse) {
-          print("Phải tải Device code mới: " + response.data!.deviceCode!);
-          putData(response.data!.deviceCode!);
-          return response.data!.deviceCode!;
-        } else {
-          //return "Error" tức là lỗi, bên ngoài sẽ xử lí
-          return "Error";
-        }
+        //return "Error" tức là lỗi, bên ngoài sẽ xử lí
+        return "Error";
       }
     }
   }

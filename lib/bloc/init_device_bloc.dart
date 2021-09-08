@@ -37,7 +37,8 @@ class InitDeviceBloc extends Bloc<InitDeviceRequestEvent, InitDeviceState> {
             responsePackage: ResponsePackage(errors: "TimeoutException"));
       } catch (e) {
         yield InitDeviceFailedState(
-            responsePackage: ResponsePackage(errors: "Somethings went wrong"));
+            responsePackage: ResponsePackage(
+                errors: "Somethings went wrong", msg: e.toString()));
       }
     }
   }
