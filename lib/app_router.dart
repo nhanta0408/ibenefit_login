@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:ibenefit_interview_test/bloc/init_device_bloc.dart';
+import 'package:ibenefit_interview_test/bloc/logout_bloc.dart';
 import 'package:ibenefit_interview_test/repo/login_repo.dart';
 import 'package:ibenefit_interview_test/screens/home_screen.dart';
 import 'package:ibenefit_interview_test/screens/login_screen.dart';
@@ -26,7 +27,7 @@ class AppRouter {
     InitDeviceBloc initDeviceBloc = InitDeviceBloc(
       loginRepository: loginRepository,
     );
-
+    LogoutBloc logoutBloc = LogoutBloc(loginRepository: loginRepository);
     switch (routeSettings.name) {
       case '/':
         return MaterialPageRoute(
@@ -42,7 +43,11 @@ class AppRouter {
           ),
         );
       case '/home_screen':
-        return MaterialPageRoute(builder: (_) => HomeScreen());
+        return MaterialPageRoute(
+            builder: (_) => BlocProvider<LogoutBloc>.value(
+                  value: logoutBloc,
+                  child: HomeScreen(),
+                ));
       default:
         return MaterialPageRoute(
           builder: (_) => BlocProvider<LoginBloc>.value(

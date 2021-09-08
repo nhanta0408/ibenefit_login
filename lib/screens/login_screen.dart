@@ -20,7 +20,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     LoadingDialog loadingDialog =
-        LoadingDialog(buildContext: context, dismissable: true);
+        LoadingDialog(buildContext: context, dismissable: false);
     userController.text = "test@ibenefit.vn";
     passController.text = "abc123456";
     return Scaffold(
@@ -40,12 +40,12 @@ class LoginScreen extends StatelessWidget {
         child: BlocConsumer<LoginBloc, LoginState>(
           listener: (context, loginState) async {
             if (loginState is LoginStateLoadingRequest) {
-              loadingDialog.show();
+              //loadingDialog.show();
             } else if (loginState is LoginStateLoginSuccessful) {
-              loadingDialog.dismiss();
+              //loadingDialog.dismiss();
               Navigator.popAndPushNamed(context, "/home_screen");
             } else if (loginState is LoginStateLoginFailure) {
-              loadingDialog.dismiss();
+              //loadingDialog.dismiss();
               if (loginState.responsePackage.code == 400) {
                 AlertDialogOneBtnCustomized(
                   context: context,
@@ -189,7 +189,8 @@ class LoginScreen extends StatelessWidget {
                     onPressed: (userController.text == "" ||
                             passController.text == "" ||
                             _isPasswordErr ||
-                            _isUsernameErr)
+                            _isUsernameErr ||
+                            loginState is LoginStateLoadingRequest)
                         ? null
                         : () async {
                             //Code này cho bản full

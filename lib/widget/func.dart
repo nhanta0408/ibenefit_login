@@ -38,7 +38,7 @@ class StoreDeivceCode {
       return "";
     } else {
       DateTime timestamp = boxTimestamp.values.first;
-      if (DateTime.now().isBefore(timestamp.add(Duration(minutes: 2)))) {
+      if (DateTime.now().isBefore(timestamp.add(Duration(minutes: 1)))) {
         print("Code cũ á: " + box.values.toString());
         return box.values.first.toString();
       } else {

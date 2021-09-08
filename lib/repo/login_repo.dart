@@ -57,7 +57,7 @@ class LoginRepository {
     };
     final response = await this
         .httpClient
-        .post(Uri.parse(Constants.urlLogout), headers: headers)
+        .get(Uri.parse(Constants.urlLogout), headers: headers)
         .timeout(Constants.timeOutLimitation);
     final json = jsonDecode(response.body);
 
