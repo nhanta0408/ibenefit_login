@@ -1,6 +1,6 @@
 # iBenefit Interview Test
 
-Có 3 screen: Splash, Login và Home screen
+Có 3 screen: Splash, Login và Home screen/
 Sử dụng API để gọi device code. Các device code sẽ có thời gian trong vòng 2 phút.
 Login, có check format đơn giản, nhận các lỗi từ server gửi về
 Home có Logout (vẫn cần device code trong mỗi lần gọi)
