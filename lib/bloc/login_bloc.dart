@@ -7,6 +7,10 @@ import 'package:ibenefit_interview_test/model/response_package.dart';
 import 'package:ibenefit_interview_test/repo/login_repo.dart';
 import 'package:ibenefit_interview_test/state/login_states.dart';
 import 'package:ibenefit_interview_test/value/constants.dart';
+import 'package:hive_flutter/adapters.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive/hive.dart';
+import 'package:ibenefit_interview_test/widget/func.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginRepository loginRepository;
@@ -41,14 +45,19 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     } else if (loginEvent is LoginEventLoginClicked) {
       yield LoginStateLoadingRequest();
       try {
-        final response = await loginRepository.loginRequest(
-            loginEvent.username, loginEvent.password, loginEvent.deviceCode);
-        if (response is LoginResponse) {
-          yield LoginStateLoginSuccessful(
-              timestamp: loginEvent.timestamp, loginResponse: response);
-        } else if (response is ResponsePackage) {
-          yield LoginStateLoginFailure(
-              timestamp: loginEvent.timestamp, responsePackage: response);
+        String deviceCode = await StoreDeivceCode.getDeviceCode();
+        if (deviceCode != "" && deviceCode != "Error") {
+          final response = await loginRepository.loginRequest(
+              loginEvent.username, loginEvent.password, deviceCode);
+          if (response is LoginResponse) {
+            yield LoginStateLoginSuccessful(
+                timestamp: loginEvent.timestamp, loginResponse: response);
+          } else if (response is ResponsePackage) {
+            yield LoginStateLoginFailure(
+                timestamp: loginEvent.timestamp, responsePackage: response);
+          }
+        } else {
+          throw Exception();
         }
       } on SocketException {
         yield LoginStateLoginFailure(

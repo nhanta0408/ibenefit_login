@@ -7,6 +7,10 @@ import 'package:ibenefit_interview_test/model/init_response.dart';
 import 'package:ibenefit_interview_test/model/response_package.dart';
 import 'package:ibenefit_interview_test/repo/login_repo.dart';
 import 'package:ibenefit_interview_test/state/init_device_state.dart';
+import 'package:hive_flutter/adapters.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive/hive.dart';
+import 'package:ibenefit_interview_test/widget/func.dart';
 
 class InitDeviceBloc extends Bloc<InitDeviceRequestEvent, InitDeviceState> {
   LoginRepository loginRepository;
@@ -16,15 +20,14 @@ class InitDeviceBloc extends Bloc<InitDeviceRequestEvent, InitDeviceState> {
   @override
   Stream<InitDeviceState> mapEventToState(InitDeviceRequestEvent event) async* {
     if (event is InitDeviceRequestEvent) {
+      //await StoreDeivceCode.openBox();
       yield InitDeviceLoadingState();
       try {
-        final response = await loginRepository.initDevice();
-        if (response is InitResponse) {
-          print("Load DeviceCode thành công: " + response.data!.deviceCode!);
-          yield InitDeviceSuccessfulState(
-              deviceCode: response.data!.deviceCode!);
-        } else if (response is ResponsePackage) {
-          yield InitDeviceFailedState(responsePackage: response);
+        String deviceCode = await StoreDeivceCode.getDeviceCode();
+        if (deviceCode != "" && deviceCode != "Error") {
+          yield InitDeviceSuccessfulState(deviceCode: deviceCode);
+        } else {
+          throw Exception();
         }
       } on SocketException {
         yield InitDeviceFailedState(

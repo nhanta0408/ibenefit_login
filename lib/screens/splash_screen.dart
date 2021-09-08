@@ -16,7 +16,7 @@ class SplashScreen extends StatelessWidget {
     return BlocConsumer<InitDeviceBloc, InitDeviceState>(
         listener: (context, initDeviceState) {
       if (initDeviceState is InitDeviceSuccessfulState) {
-        Navigator.pushNamed(context, '/login_screen');
+        Navigator.popAndPushNamed(context, '/login_screen');
       } else if (initDeviceState is InitDeviceFailedState) {
         AlertDialogOneBtnCustomized(
                 context: context,

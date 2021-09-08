@@ -6,6 +6,7 @@ import 'package:ibenefit_interview_test/state/login_states.dart';
 import 'package:ibenefit_interview_test/value/color.dart';
 import 'package:ibenefit_interview_test/value/constants.dart';
 import 'package:ibenefit_interview_test/widget/dialog.dart';
+import 'package:ibenefit_interview_test/widget/func.dart';
 import 'package:ibenefit_interview_test/widget/widget.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -20,6 +21,8 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     LoadingDialog loadingDialog =
         LoadingDialog(buildContext: context, dismissable: true);
+    userController.text = "test@ibenefit.vn";
+    passController.text = "abc123456";
     return Scaffold(
       appBar: AppBar(
         backgroundColor: MyColor.primaryColor,
@@ -40,6 +43,7 @@ class LoginScreen extends StatelessWidget {
               loadingDialog.show();
             } else if (loginState is LoginStateLoginSuccessful) {
               loadingDialog.dismiss();
+              Navigator.popAndPushNamed(context, "/home_screen");
             } else if (loginState is LoginStateLoginFailure) {
               loadingDialog.dismiss();
               if (loginState.responsePackage.code == 400) {
@@ -193,8 +197,6 @@ class LoginScreen extends StatelessWidget {
                                 LoginEventLoginClicked(
                                     username: userController.text,
                                     password: passController.text,
-                                    deviceCode:
-                                        "c8d0268096ef9853076f7c974fd9e74d",
                                     timestamp: DateTime.now()));
                             // //Code này cho bản test
                           },

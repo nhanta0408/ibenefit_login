@@ -34,10 +34,7 @@ class LoginRepository {
       "Content-type": "application/json",
       "DEVICE-CODE": deviceCode
     };
-    Map<String, String> body = {
-      "userName": "$userName",
-      "password": "$password"
-    };
+    Map<String, String> body = {"email": "$userName", "password": "$password"};
     final response = await this
         .httpClient
         .post(Uri.parse(Constants.urlLogin),

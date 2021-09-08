@@ -18,12 +18,11 @@ class LoginEventToggleShow extends LoginEvent {
 }
 
 class LoginEventLoginClicked extends LoginEvent {
-  final String username, password, deviceCode;
+  final String username, password;
   final DateTime timestamp;
   LoginEventLoginClicked(
       {required this.username,
       required this.password,
-      required this.deviceCode,
       required this.timestamp});
   @override
   List<Object> get props => [username, password, timestamp];
