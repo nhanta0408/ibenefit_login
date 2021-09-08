@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ibenefit_interview_test/value/color.dart';
+import 'package:ibenefit_interview_test/value/constants.dart';
 import 'package:ndialog/ndialog.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
@@ -41,12 +42,12 @@ class AlertDialogTwoBtnCustomized {
             },
             buttons: [
               DialogButton(
-                height: 45,
+                height: 45 * SizeConfig.ratioHeight!,
                 radius: BorderRadius.all(Radius.circular(8)),
                 color: bgBtn1,
                 child: Text(textBtn1,
                     style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 20 * SizeConfig.ratioFont!,
                         color: fgBtn1,
                         fontWeight: FontWeight.bold)),
                 onPressed: () {
@@ -60,7 +61,7 @@ class AlertDialogTwoBtnCustomized {
                 color: bgBtn2,
                 child: Text(textBtn2,
                     style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 20 * SizeConfig.ratioFont!,
                         color: fgBtn2,
                         fontWeight: FontWeight.bold)),
                 onPressed: () {
@@ -73,10 +74,11 @@ class AlertDialogTwoBtnCustomized {
             ],
             style: AlertStyle(
                 descStyle: TextStyle(
-                    fontSize: descFSize,
+                    fontSize: descFSize * SizeConfig.ratioFont!,
                     fontWeight: FontWeight.normal,
-                    height: 1.5),
-                titleStyle: TextStyle(fontSize: titleFSize)))
+                    height: 1.5 * SizeConfig.ratioHeight!),
+                titleStyle:
+                    TextStyle(fontSize: titleFSize * SizeConfig.ratioFont!)))
         .show();
   }
 }
@@ -119,12 +121,12 @@ class AlertDialogOneBtnCustomized {
             desc: desc,
             buttons: [
               DialogButton(
-                height: 45,
+                height: 45 * SizeConfig.ratioHeight!,
                 radius: BorderRadius.all(Radius.circular(8)),
                 color: bgBtn,
                 child: Text(textBtn,
                     style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 20 * SizeConfig.ratioFont!,
                         color: fgBtn,
                         fontWeight: FontWeight.bold)),
                 onPressed: () {
@@ -139,8 +141,10 @@ class AlertDialogOneBtnCustomized {
             ],
             style: AlertStyle(
                 descStyle: TextStyle(
-                    fontSize: descFSize, fontWeight: FontWeight.normal),
-                titleStyle: TextStyle(fontSize: titleFSize)))
+                    fontSize: descFSize * SizeConfig.ratioFont!,
+                    fontWeight: FontWeight.normal),
+                titleStyle:
+                    TextStyle(fontSize: titleFSize * SizeConfig.ratioFont!)))
         .show();
   }
 }
@@ -163,15 +167,15 @@ class LoadingDialog {
         padding: EdgeInsets.all(5),
         child: Text(
           "Đang tải dữ liệu",
-          style: TextStyle(fontSize: 20),
+          style: TextStyle(fontSize: 20 * SizeConfig.ratioFont!),
         ),
       ),
       dismissable: dismissable,
       defaultLoadingWidget: Container(
           //Do dialog ko có kích thước, nên dùng chính Container để chỉnh kích thước cho Dialog và padding để ép size Circular
           padding: EdgeInsets.all(15),
-          width: 60,
-          height: 60, //Chỗ này là width thì nó mới ra hình vuông được
+          width: 60 * SizeConfig.ratioRadius!,
+          height: 60 * SizeConfig.ratioRadius!,
           child: CircularProgressIndicator(
               valueColor: AlwaysStoppedAnimation<Color>(MyColor.primaryColor),
               strokeWidth: 3)),

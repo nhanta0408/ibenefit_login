@@ -3,14 +3,24 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 class Constants {
+  ///Số ký tự tối thiểu cho username
   static const int minLengthUsername = 3;
+
+  ///Số ký tự tối thiểu cho password
   static const int minLengthPassword = 6;
 
+  ///URL dùng để lấy device code
   static const String urlInitDevice = "http://a.vipn.net/api/device/init";
+
+  ///URL dùng để lấy login
   static const String urlLogin = "http://a.vipn.net/api/auth/login";
+
+  ///URL dùng để logout
   static const String urlLogout = "http://a.vipn.net/api/auth/logout";
 
   static const Duration timeOutLimitation = Duration(seconds: 10);
+  static const Duration timeOutCache =
+      Duration(minutes: 3); //để 1 để test cho nhanh
 }
 
 class SizeConfig {
@@ -21,7 +31,6 @@ class SizeConfig {
 
   ///Logical pixel của chiều dọc điện thoại đang chạy ứng dụng
   static double? screenHeight;
-  //Sample là Google Pixel 3, các điện thoại khác thì phải debug để xem lại Logical Pixel của nó.
 
   ///Logical pixel của chiều ngang điện thoại tham chiếu Redmi Note 8 tự tạo
   static double screenWidthSample = 360.0;
@@ -29,10 +38,10 @@ class SizeConfig {
   ///Logical pixel của chiều dọc điện thoại tham chiếu Redmi Note 8 tự tạo
   static double screenHeightSample = 732.0;
 
-  ///Tỉ lệ chiều ngang của điện thoại chạy ứng dụng/điện thoại tham chiếu Pixel 3
+  ///Tỉ lệ chiều ngang của điện thoại chạy ứng dụng/điện thoại tham chiếu
   static double? ratioWidth;
 
-  ///Tỉ lệ chiều dọc của điện thoại chạy ứng dụng/điện thoại tham chiếu Pixel 3
+  ///Tỉ lệ chiều dọc của điện thoại chạy ứng dụng/điện thoại tham chiếu
   static double? ratioHeight;
 
   static double? ratioFont;

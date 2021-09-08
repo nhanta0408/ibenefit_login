@@ -8,7 +8,7 @@ import 'package:ibenefit_interview_test/value/constants.dart';
 class LoginRepository {
   final http.Client httpClient;
   LoginRepository({required this.httpClient});
-
+  //Lấy device code từ API
   Future initDevice() async {
     Map<String, String> headers = {"Content-type": "application/json"};
     Map<String, dynamic> body = {
@@ -28,6 +28,7 @@ class LoginRepository {
     }
   }
 
+  //Đăng nhập
   Future loginRequest(
       String userName, String password, String deviceCode) async {
     Map<String, String> headers = {
@@ -50,6 +51,7 @@ class LoginRepository {
     }
   }
 
+  //Đăng xuất
   Future logout(String deviceCode) async {
     Map<String, String> headers = {
       "Content-type": "application/json",

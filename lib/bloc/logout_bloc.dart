@@ -6,7 +6,7 @@ import 'package:ibenefit_interview_test/events/logout_events.dart';
 import 'package:ibenefit_interview_test/model/response_package.dart';
 import 'package:ibenefit_interview_test/repo/login_repo.dart';
 import 'package:ibenefit_interview_test/state/logout_state.dart';
-import 'package:ibenefit_interview_test/widget/func.dart';
+import 'package:ibenefit_interview_test/widget/store_device_code.dart';
 
 class LogoutBloc extends Bloc<LogoutEvent, LogoutState> {
   LoginRepository loginRepository;
@@ -15,6 +15,7 @@ class LogoutBloc extends Bloc<LogoutEvent, LogoutState> {
   Stream<LogoutState> mapEventToState(LogoutEvent event) async* {
     yield LogoutBlocStateLoading(timestamp: DateTime.now());
     try {
+      //check device code cache
       String deviceCode = await StoreDeivceCode.getDeviceCode();
       if (deviceCode != "" && deviceCode != "Error") {
         final ResponsePackage response =

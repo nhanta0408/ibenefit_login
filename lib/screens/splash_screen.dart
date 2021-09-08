@@ -6,6 +6,7 @@ import 'package:ibenefit_interview_test/state/init_device_state.dart';
 import 'package:ibenefit_interview_test/value/color.dart';
 import 'package:ibenefit_interview_test/value/constants.dart';
 import 'package:ibenefit_interview_test/widget/dialog.dart';
+import 'package:ibenefit_interview_test/widget/store_device_code.dart';
 
 class SplashScreen extends StatelessWidget {
   SplashScreen();
@@ -14,8 +15,14 @@ class SplashScreen extends StatelessWidget {
     SizeConfig().init(context);
     BlocProvider.of<InitDeviceBloc>(context).add(InitDeviceRequestEvent());
     return BlocConsumer<InitDeviceBloc, InitDeviceState>(
-        listener: (context, initDeviceState) {
+        listener: (context, initDeviceState) async {
       if (initDeviceState is InitDeviceSuccessfulState) {
+        //Phần xử lí nằm trong Bloc
+        //Phần này chỉ hiển thị snackbar về device code
+        ScaffoldMessenger.of(context).clearSnackBars();
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(
+                "Show Device code: " + await StoreDeivceCode.getDeviceCode())));
         Navigator.popAndPushNamed(context, '/login_screen');
       } else if (initDeviceState is InitDeviceFailedState) {
         AlertDialogOneBtnCustomized(

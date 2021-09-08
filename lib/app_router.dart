@@ -11,7 +11,7 @@ import 'package:ibenefit_interview_test/screens/splash_screen.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hive/hive.dart';
-import 'package:ibenefit_interview_test/widget/func.dart';
+import 'package:ibenefit_interview_test/widget/store_device_code.dart';
 import 'bloc/login_bloc.dart';
 
 class AppRouter {

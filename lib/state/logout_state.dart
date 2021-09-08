@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:ibenefit_interview_test/model/response_package.dart';
 
 abstract class LogoutState extends Equatable {}
@@ -21,7 +22,7 @@ class LogoutBlocStateSuccessful extends LogoutState {
 }
 
 class LogoutBlocStateFailure extends LogoutState {
-  ResponsePackage responsePackage;
+  final ResponsePackage responsePackage;
   LogoutBlocStateFailure({required this.responsePackage});
   @override
   List<Object?> get props => [];

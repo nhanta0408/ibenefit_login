@@ -7,13 +7,14 @@ import 'package:ibenefit_interview_test/state/logout_state.dart';
 import 'package:ibenefit_interview_test/value/color.dart';
 import 'package:ibenefit_interview_test/value/constants.dart';
 import 'package:ibenefit_interview_test/widget/dialog.dart';
+import 'package:ibenefit_interview_test/widget/store_device_code.dart';
 import 'package:ibenefit_interview_test/widget/widget.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    LoadingDialog loadingDialog =
-        LoadingDialog(buildContext: context, dismissable: false);
+    // LoadingDialog loadingDialog =
+    //     LoadingDialog(buildContext: context, dismissable: false);
     final loginResponse =
         ModalRoute.of(context)!.settings.arguments as LoginResponse;
     print("User có name là: " + loginResponse.data!.user!.name!);
@@ -62,16 +63,24 @@ class HomeScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(
-                      "Xin chào " + loginResponse.data!.user!.name!,
-                      style: TextStyle(fontSize: 30),
+                    FittedBox(
+                      child: Text(
+                        "Xin chào " + loginResponse.data!.user!.name!,
+                        style: TextStyle(fontSize: 30 * SizeConfig.ratioFont!),
+                      ),
                     ),
                     SizedBox(height: 30 * SizeConfig.ratioHeight!),
                     CustomizedButton(
                         text: "Logout",
                         onPressed: logoutState is LogoutBlocStateLoading
                             ? null
-                            : () {
+                            : () async {
+                                ScaffoldMessenger.of(context).clearSnackBars();
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                        content: Text("Show Device code: " +
+                                            await StoreDeivceCode
+                                                .getDeviceCode())));
                                 BlocProvider.of<LogoutBloc>(context)
                                     .add(LogoutEvent());
                               })
