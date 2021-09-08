@@ -25,11 +25,26 @@ class SplashScreen extends StatelessWidget {
                 "Show Device code: " + await StoreDeivceCode.getDeviceCode())));
         Navigator.popAndPushNamed(context, '/login_screen');
       } else if (initDeviceState is InitDeviceFailedState) {
-        AlertDialogOneBtnCustomized(
-                context: context,
-                title: "Đã có lỗi xảy ra",
-                desc: "Vui lòng thử lại")
-            .show();
+        if (initDeviceState.responsePackage.errors == "SocketException") {
+          AlertDialogOneBtnCustomized(
+                  context: context,
+                  title: "Mất kết nối internet",
+                  desc: "Vui lòng kết nối và thử lại")
+              .show();
+        } else if (initDeviceState.responsePackage.errors ==
+            "TimeoutException") {
+          AlertDialogOneBtnCustomized(
+                  context: context,
+                  title: "Không phản hồi",
+                  desc: "Vui lòng thử lại")
+              .show();
+        } else {
+          AlertDialogOneBtnCustomized(
+                  context: context,
+                  title: "Đã có lỗi xảy ra",
+                  desc: "Vui lòng thử lại")
+              .show();
+        }
       }
     }, builder: (context, initDeviceState) {
       if (initDeviceState is InitDeviceLoadingState) {
